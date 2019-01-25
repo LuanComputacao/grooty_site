@@ -1,5 +1,3 @@
-![Groot](/docs/grooty.png)
-
 # Grooty
 
 Fast and simple response project to serve some answers to a service.
