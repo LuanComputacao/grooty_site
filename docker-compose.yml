@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+    site-web:
+        build:
+            context: ./
+            dockerfile: nginx.Dockerfile
+        ports:
+            - "8081:80"
+        volumes:
+            - ./:/code
+            - ./site.nginx.conf:/etc/nginx/conf.d/site.conf
+            - templates-site:/tmp/twig/site
+        links:
+            - site-php
+        networks:
+            - site-network
+        depends_on:
+            - site-mysql
+            - site-php
+
+    site-php:
+        build:
+            context: ./
+            dockerfile: php-fpm.Dockerfile
+        volumes:
+            - ./:/code
+            - templates-site:/tmp/twig/site
+        command: /bin/sh -c "cd /code && composer install && php-fpm"
+        networks:
+            - site-network
+        depends_on:
+            - site-mysql
+
+    site-mysql:
+        build:
+            context: ./
+            dockerfile: mysql.Dockerfile
+        volumes:
+            - mysql-site:/var/lib/mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            - MYSQL_ROOT_PASSWORD=shaaman
+            - MYSQL_DATABASE=site
+            - MYSQL_USER=site
+            - MYSQL_PASSWORD=site
+        networks:
+            - site-network
+
+volumes:
+    mysql-site:
+    templates-site:
+
+networks:
+    site-network:
+        driver: bridge

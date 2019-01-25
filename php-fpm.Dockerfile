@@ -1,2 +1,5 @@
 FROM php:7-fpm-alpine
-RUN /bin/sh -c "docker-php-ext-install pdo_mysql"
+
+COPY php-fpm-bootstrap.sh /root/bootstrap.sh
+
+RUN sh /root/bootstrap.sh
