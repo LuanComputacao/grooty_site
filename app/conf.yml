@@ -1,0 +1,16 @@
+env: dev
+
+# Project structure
+views_folder: views
+cache_folder: /tmp/twig/site
+router_file: routes.php
+
+# Database info
+db_name: grooty
+db_user: root
+db_pwd: shaaman
+db_host: mysql
+
+# Errors
+error_report_level: 1
+
