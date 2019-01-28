@@ -32,6 +32,6 @@ class Controller implements IController
 
     private function httpMethodNotAllowed($method)
     {
-        echo 'Method' . $method . 'not allowed';
+        echo 'Method <strong>' . $method . '</strong> not allowed';
     }
 }

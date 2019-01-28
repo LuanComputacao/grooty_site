@@ -70,7 +70,7 @@ class ControllerManager implements IControllerManager
         return $this->path;
     }
 
-    function getRoute()
+    public function getRoute()
     {
         return $this->route;
     }

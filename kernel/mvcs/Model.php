@@ -9,12 +9,16 @@
 namespace Kernel\mvcs;
 
 
+use Kernel\interfaces\IDBConnection;
+
 class Model
 {
-    public function __construct()
-    {
-    }
 
+    private static $connection;
+
+    /**
+     *
+     */
     public function getOne()
     {
     }
@@ -28,7 +32,8 @@ class Model
 
     }
 
-    public function first(){
+    public function first()
+    {
 
     }
 }

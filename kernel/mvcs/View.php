@@ -42,15 +42,12 @@ class View
         self::$twig = new Twig_Environment(self::$loader, ['cache' => self::$cacheFolder]);
     }
 
-    public static function render($view, array $args)
+    public static function render($view, array $args = [])
     {
         self::checkInstance();
 
         try {
-            if (Conf::getConf('env') == 'dev') {
-                self::deleteDir(self::$cacheFolder);
-                self::loadTwig();
-            }
+            self::refreshDevEnv();
 
             echo self::$twig->render($view . '.twig', $args);
         } catch (Exception $e) {
@@ -58,8 +55,21 @@ class View
         }
     }
 
+    public static function mount(string $view, array $args = []): string
+    {
+        self::checkInstance();
+        self::refreshDevEnv();
+        return self::$twig->render($view . '.twig', $args);
+    }
 
-    public static function deleteDir($dirPath)
+    public static function responseJson(array $jsonContent)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($jsonContent);
+    }
+
+
+    private static function deleteDir($dirPath)
     {
         if (!is_dir($dirPath)) {
             throw new InvalidArgumentException("$dirPath must be a directory");
@@ -83,6 +93,14 @@ class View
         if (!isset(self::$instance)) {
             $stClass = __CLASS__;
             self::$instance = new $stClass();
+        }
+    }
+
+    private static function refreshDevEnv(): void
+    {
+        if (Conf::getConf('env') == 'dev') {
+            self::deleteDir(self::$cacheFolder);
+            self::loadTwig();
         }
     }
 }

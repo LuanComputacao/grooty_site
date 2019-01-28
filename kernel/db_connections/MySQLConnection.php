@@ -1,23 +1,20 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: luancomputacao
+ * Date: 06/01/19
+ * Time: 19:06
+ */
 
-namespace Kernel\managers;
+namespace Kernel;
 
 
-use Exception;
-use Kernel\Conf;
 use Kernel\interfaces\IDBConnection;
 use PDO;
 use PDOException;
 
-class DBConnection implements IDBConnection
+class MySQLConnection implements IDBConnection
 {
-    private static $driver = "mysql";
-    private static $host = "localhost";
-    private static $dbname = "dbdev";
-    private static $user = "dev";
-    private static $pwd = "dev";
-
-
     private static $pdo;
 
     public static function getConnection()
@@ -34,10 +31,8 @@ class DBConnection implements IDBConnection
                 Conf::getConf('db_pwd')
             );
             self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        } catch (Exception $e) {
+        } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
-
 }
