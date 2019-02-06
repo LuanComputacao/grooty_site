@@ -3,7 +3,7 @@ var entChat = {
     chatURL: '/chat',
     socketURL: '/message',
     clientInfo: {
-        token: 'b22f9b1525cf924350fb9efaa9d4acb5'
+        token: '376c746416e3a83bb4c93696e90d6221'
     }
 };
 
