@@ -1,5 +1,6 @@
 var entChat = {
     selfServURL: 'http://localhost:8082/support',
+    faqURL: 'http://localhost:8082/faq-question',
     chatURL: '/chat',
     socketURL: '/message',
     clientInfo: {
