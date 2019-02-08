@@ -3,10 +3,18 @@
 {% block content %}
 <div class="container">
     <div class="row">
+        <h1>Site home page</h1>
+    </div>
+    <div class="row js-faq-box">
         <div class="col-xs-12">
-            <h1>Site home page</h1>
+            <div class="row">
+                <h1>Perguntas mais frequentes</h1>
+            </div>
+            <div id="ent-chat-faq" class="row">
+            </div>
+            
         </div>
     </div>
 </div>
-   {% include 'partials/support_container.twig' %}
+{% include 'partials/support_container.twig' %}
 {% endblock %}

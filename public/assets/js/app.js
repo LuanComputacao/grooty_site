@@ -10,4 +10,7 @@ var entChat = {
 
 $(function () {
     $('#anjelim-box').entChat(entChat);
+    $('#ent-chat-faq').on('faq-loaded', function(){
+        $('.js-faq-box').show('slow');
+    });
 });

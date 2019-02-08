@@ -1,4 +1,5 @@
 #anjelim-box {
+    background-color: #c4c4c4;
     position: fixed;
     right: 0;
     bottom: 0;
@@ -8,4 +9,18 @@
     border: solid 1px #c4c4c4;
     border-radius: 3px;
     padding: 5px 3px 0px;
+}
+
+#ent-chat-faq{
+    
+    display: none;
+}
+.ent-chat__faq-questions{
+    border-radius: 3px;
+    background-color: #c4c4f5;
+    border: solid 1px #c4c4c4;
+}
+
+.js-faq-box{
+    display: none;
 }
