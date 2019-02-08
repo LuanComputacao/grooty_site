@@ -85,7 +85,7 @@ class View
                 unlink($file);
             }
         }
-        rmdir($dirPath);
+//        rmdir($dirPath);
     }
 
     private static function checkInstance(): void

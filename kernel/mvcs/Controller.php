@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: luancomputacao
- * Date: 18/12/18
- * Time: 03:06
- */
 
 namespace Kernel\mvcs;
-
 
 use Kernel\interfaces\IController;
 
@@ -32,6 +25,19 @@ class Controller implements IController
 
     private function httpMethodNotAllowed($method)
     {
-        echo 'Method <strong>' . $method . '</strong> not allowed';
+        echo 'Method ' . $method . ' not allowed';
+    }
+
+    protected static function allowCORSOrigin($originURL)
+    {
+        header("Access-Control-Allow-Origin: " . $originURL);
+    }
+
+    /**
+     * @param $methods array Can have som values from the array [GET, POST, PUT,  DELETE, OPTIONS]
+     */
+    protected static function allowCORSMethods($methods)
+    {
+        header("Access-Control-Allow-Methods:" . join(" ,", $methods));
     }
 }

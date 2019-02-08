@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Kernel\managers;
 
 use http\Exception;
-use Kernel\interfaces\{
-    IController, IControllerManager
-};
+use Kernel\Conf;
+use Kernel\interfaces\{IController, IControllerManager};
 use Kernel\mvcs\Routes;
 
 class ControllerManager implements IControllerManager
@@ -21,6 +19,7 @@ class ControllerManager implements IControllerManager
     {
         $this->parseUrl();
         $this->checkRoute();
+        $this->checkCORS();
         $this->setControllerClass();
         $this->instantiateController();
     }
@@ -46,6 +45,22 @@ class ControllerManager implements IControllerManager
     private function checkRouteName()
     {
         $this->route = Routes::getRouteByName($this->path);
+    }
+
+    private function checkCORS()
+    {
+        $allowedRouteDomains = Conf::getConf('allowed_domains');
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? null;
+
+        if (!is_null($origin) && !is_null($allowedRouteDomains)) {
+            $routeNames = array_keys($this->route);
+            reset($routeNames);
+            if (in_array(current($routeNames), $allowedRouteDomains)) {
+                if (in_array($origin, $allowedRouteDomains[reset($routeNames)])) {
+                    header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
+                }
+            }
+        }
     }
 
     private function setControllerClass()
@@ -89,7 +104,7 @@ class ControllerManager implements IControllerManager
                 $this->httpMethodNotAllowed('get');
             }
         } elseif ($_SERVER['REQUEST_METHOD'] == "POST") {
-            if (method_exists($this->controller, "get")) {
+            if (method_exists($this->controller, "post")) {
                 $this->controller->post();
             } else {
                 $this->httpMethodNotAllowed('post');

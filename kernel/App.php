@@ -10,13 +10,10 @@ use Kernel\interfaces\IDBConnection;
 class App
 {
     private $controller = null;
-    private $dbConnection = null;
 
-
-    function __construct(IControllerManager $controllerManager, IDBConnection $connection)
+    function __construct(IControllerManager $controllerManager)
     {
         $this->controller =  $controllerManager->getController();
         $this->controller->callGetOrPost();
-        $this->dbConnection = $connection::getConnection();
     }
 }
